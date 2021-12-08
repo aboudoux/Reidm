@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{40C9F23E-6355-4A54-88FA-B600B9FC73F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reidm.Application", "Backend\Reidm.Application\Reidm.Application.csproj", "{035C078A-5965-4A0F-BCE5-F82AA38B7804}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reidm.Domain", "Backend\Reidm.Domain\Reidm.Domain.csproj", "{2AAE0FE4-439E-4734-806B-B6B3B5469028}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reidm.Infrastructure", "Backend\Reidm.Infrastructure\Reidm.Infrastructure.csproj", "{7EE13EF4-12AB-4970-B3AC-5CD55125616C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reidm.Domain.Tests", "Backend\Reidm.Domain.Tests\Reidm.Domain.Tests.csproj", "{7F09533E-D10D-4ECE-9F7E-E0485D6D9822}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reidm.Web", "Reidm.Web\Reidm.Web.csproj", "{79FE9E49-F50B-4D52-88F5-7139DE0D3546}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{035C078A-5965-4A0F-BCE5-F82AA38B7804}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{035C078A-5965-4A0F-BCE5-F82AA38B7804}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{035C078A-5965-4A0F-BCE5-F82AA38B7804}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{035C078A-5965-4A0F-BCE5-F82AA38B7804}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AAE0FE4-439E-4734-806B-B6B3B5469028}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AAE0FE4-439E-4734-806B-B6B3B5469028}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AAE0FE4-439E-4734-806B-B6B3B5469028}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AAE0FE4-439E-4734-806B-B6B3B5469028}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EE13EF4-12AB-4970-B3AC-5CD55125616C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EE13EF4-12AB-4970-B3AC-5CD55125616C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EE13EF4-12AB-4970-B3AC-5CD55125616C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EE13EF4-12AB-4970-B3AC-5CD55125616C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F09533E-D10D-4ECE-9F7E-E0485D6D9822}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F09533E-D10D-4ECE-9F7E-E0485D6D9822}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F09533E-D10D-4ECE-9F7E-E0485D6D9822}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F09533E-D10D-4ECE-9F7E-E0485D6D9822}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79FE9E49-F50B-4D52-88F5-7139DE0D3546}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79FE9E49-F50B-4D52-88F5-7139DE0D3546}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79FE9E49-F50B-4D52-88F5-7139DE0D3546}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79FE9E49-F50B-4D52-88F5-7139DE0D3546}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{035C078A-5965-4A0F-BCE5-F82AA38B7804} = {40C9F23E-6355-4A54-88FA-B600B9FC73F3}
+		{2AAE0FE4-439E-4734-806B-B6B3B5469028} = {40C9F23E-6355-4A54-88FA-B600B9FC73F3}
+		{7EE13EF4-12AB-4970-B3AC-5CD55125616C} = {40C9F23E-6355-4A54-88FA-B600B9FC73F3}
+		{7F09533E-D10D-4ECE-9F7E-E0485D6D9822} = {40C9F23E-6355-4A54-88FA-B600B9FC73F3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {62CD437E-DD05-4A54-811A-DFFA41645886}
+	EndGlobalSection
+EndGlobal
