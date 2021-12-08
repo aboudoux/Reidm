@@ -1,13 +1,34 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Reidm.Web.Data;
+using System.Reflection;
+using BlazorState;
+using MudBlazor;
+using MudBlazor.Services;
+using Reidm.Application;
+using Reidm.Application.Common;
+using Reidm.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddMudServices(config => {
+	config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomRight;
+
+	config.SnackbarConfiguration.PreventDuplicates = false;
+	config.SnackbarConfiguration.NewestOnTop = false;
+	config.SnackbarConfiguration.ShowCloseIcon = true;
+	config.SnackbarConfiguration.VisibleStateDuration = 1500;
+	config.SnackbarConfiguration.HideTransitionDuration = 300;
+	config.SnackbarConfiguration.ShowTransitionDuration = 300;
+	config.SnackbarConfiguration.SnackbarVariant = Variant.Outlined;
+});
+
+builder.Services.AddBlazorState(options => {
+	options.UseCloneStateBehavior = false;
+	options.Assemblies = new[] { Assembly.GetExecutingAssembly() };
+});
+
+builder.Services.RegisterApplicationDependencies();
 
 var app = builder.Build();
 
@@ -26,5 +47,10 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+
+using (var scope = app.Services.CreateScope()) {
+	var commandBus = scope.ServiceProvider.GetRequiredService<ICommandBus>();
+	await commandBus.SendAsync(new ReplayAllEvents());
+}
 
 app.Run();

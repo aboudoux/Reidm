@@ -7,8 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="Blazor-State" Version="4.0.1" />
+    <PackageReference Include="BlazorAnimation" Version="2.1.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="MudBlazor" Version="6.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\css\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Backend\Reidm.Application\Reidm.Application.csproj" />
+    <ProjectReference Include="..\Backend\Reidm.Domain\Reidm.Domain.csproj" />
+    <ProjectReference Include="..\Backend\Reidm.Infrastructure\Reidm.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

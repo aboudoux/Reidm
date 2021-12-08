@@ -1,0 +1,253 @@
+﻿@page "/building/{buildingId}"
+@using Reidm.Web.Stores
+@using Reidm.Domain.Buildings.Values
+@using MediatR
+@inherits BlazorState.BlazorStateComponent
+
+<MudPaper Elevation="5" Class="p-2 m-2">
+    <MudTextField @bind-Value="BuildingLabelText" Label="Label" Variant="Variant.Outlined"></MudTextField>
+</MudPaper>
+<div class="grid sm:grid-cols-2 gap-x-2 m-2 xs:grid-cols-1">
+    <MudPaper Elevation="3" Class="p-2">
+        <MudTextField @bind-Value="WantAdLinkText" Label="Lien vers l'annonce" Variant="Variant.Outlined" AdornmentIcon="@Icons.Filled.Link" Adornment="Adornment.End" IconSize="Size.Small" OnAdornmentClick="OnWantAddClicked" AdornmentColor="Color.Info"></MudTextField>
+        <MudTextField @bind-Value="WantAdText" Label="Texte de l'annonce" Variant="Variant.Outlined" Lines="3" AdornmentIcon="@Icons.Filled.EditNote" Adornment="Adornment.Start" IconSize="Size.Small"></MudTextField>
+        <MudTextField @bind-Value="AddressText" Label="Adresse" Variant="Variant.Outlined" Lines="2" AdornmentIcon="@Icons.Outlined.LocationOn" Adornment="Adornment.End" IconSize="Size.Small" OnAdornmentClick="OnAddressClicked" AdornmentColor="Color.Info"></MudTextField>
+        <div class="grid grid-rows-2 gap-x-2 md:grid-cols-2 sm:grid-cols-1">
+            <MudTextField @bind-Value="SellingPriceValue" Label="Prix de vente" Variant="Variant.Outlined" AdornmentIcon="@Icons.Filled.Euro" IconSize="Size.Small" Adornment="Adornment.Start"></MudTextField>
+            <MudTextField @bind-Value="PropertyTaxValue" Label="Taxe foncière" Variant="Variant.Outlined" AdornmentIcon="@Icons.Filled.Euro" IconSize="Size.Small" Adornment="Adornment.Start"></MudTextField>
+            <MudTextField @bind-Value="SurfaceValue" Label="Surface" Variant="Variant.Outlined"></MudTextField>
+            <MudTextField @bind-Value="BuildingYearValue" Label="Année construction" Variant="Variant.Outlined"></MudTextField>
+        </div>
+        <MudTextField @bind-Value="LastWorksText" Label="Derniers travaux" Variant="Variant.Outlined" Lines="3" AdornmentIcon="@Icons.Filled.EditNote" Adornment="Adornment.Start" IconSize="Size.Small"></MudTextField>
+        <MudTextField @bind-Value="CommentsText" Label="Remarques" Variant="Variant.Outlined" Lines="3" AdornmentIcon="@Icons.Filled.EditNote" Adornment="Adornment.Start" IconSize="Size.Small"></MudTextField>
+    </MudPaper>
+    <MudPaper Elevation="3" Class="p-2">
+        <MudPaper Elevation="5" Class="p-2">
+            <MudText Typo="Typo.h6" GutterBottom="true">Chauffage</MudText>
+            <MudChipSet @bind-SelectedChip="selected2" Filter="true" Mandatory="true">
+                <MudChip Text="Collectif"></MudChip>
+                <MudChip Text="Individuel"></MudChip>
+            </MudChipSet>
+            <div class="flex items-center">
+                <MudText Class="whitespace-nowrap mr-2" Typo="Typo.body2" Align="Align.Start">@($"Etat ({State.CurrentBuilding.BoilerCondition}/10)")</MudText>
+                <MudSlider T="int" Min="0" Max="10" Step="1" Value="@State.CurrentBuilding.BoilerCondition" ValueChanged="OnBoilerValueChange"></MudSlider>
+            </div>
+        </MudPaper>
+        <MudPaper Elevation="5" Class="p-2 mt-2">
+            <MudText Typo="Typo.h6" GutterBottom="true">Toiture</MudText>
+            <div class="flex items-center">
+                <MudText Class="whitespace-nowrap mr-2" Typo="Typo.body2" Align="Align.Start">@($"Etat ({State.CurrentBuilding.RoofCondition}/10)")</MudText>
+                <MudSlider T="int" Min="0" Max="10" Step="1" Value="@State.CurrentBuilding.RoofCondition" ValueChanged="OnRoofValueChange"></MudSlider>
+            </div>
+            <MudDatePicker Editable="true" Label="Dernier remaniement" @bind-Date="LastRoofRepairValue"></MudDatePicker>
+            
+        </MudPaper>
+        <MudPaper Elevation="5" Class="p-2 mt-2">
+            <MudText Typo="Typo.h6" GutterBottom="true">Façade</MudText>
+            <div class="flex items-center">
+                <MudText Class="whitespace-nowrap mr-2" Typo="Typo.body2">@($"Etat ({State.CurrentBuilding.FacadeCondition}/10)")</MudText>
+                <MudSlider T="int" Min="0" Max="10" Step="1" Value="@State.CurrentBuilding.FacadeCondition" ValueChanged="OnFacadeValueChange"></MudSlider>
+            </div>
+            <MudDatePicker Editable="true" Label="Dernier remaniement" @bind-Date="LastFacadeRepairValue"></MudDatePicker>
+        </MudPaper>
+        <MudPaper Elevation="5" Class="mt-2 p-2">
+            <MudText Typo="Typo.h6" GutterBottom="true">Autre</MudText>
+            <MudChipSet  MultiSelection="true" Filter="true" @bind-SelectedChips="_chipsMvuAdapter.Selected">
+                <MudChip @ref="AtticsChip" Tag="@typeof(Attics)" Text="Comble" Variant="Variant.Text"></MudChip>
+                <MudChip @ref="ClassifiedAreaChip" Tag="@typeof(ClassifiedArea)" Text="Zone classée" SelectedColor="Color.Error" Color="Color.Success" Variant="Variant.Text"></MudChip>
+                <MudChip @ref="BasementChip" Tag="@typeof(Basement)" Text="Sous sol" Color="Color.Default" Variant="Variant.Text"></MudChip>
+                <MudChip @ref="CellarChip" Tag="@typeof(Cellar)" Text="Caves" Color="Color.Default" SelectedColor="Color.Success" Variant="Variant.Text"></MudChip>
+                <MudChip @ref="SewageServicesChip" Tag="@typeof(SewageServices)" Text="Tout à l'égout" Color="Color.Error" SelectedColor="Color.Success" Variant="Variant.Text"></MudChip>
+                <MudChip @ref="TownGasChip" Tag="@typeof(TownGas)" Text="Gaz" Variant="Variant.Text"></MudChip>
+                <MudChip @ref="SeparateElectricMetersChip" Tag="@typeof(SeparateElectricMeters)" Text="Compteurs éléctriques séparés" Color="Color.Error" SelectedColor="Color.Success" Variant="Variant.Text"></MudChip>
+                <MudChip @ref="SeparateWaterMetersChip" Tag="@typeof(SeparateWaterMeters)" Text="Compteurs eaux séparés" Color="Color.Default" SelectedColor="Color.Success" Variant="Variant.Text"></MudChip>
+            </MudChipSet>
+        </MudPaper>
+    </MudPaper>
+</div>
+
+@code {
+
+
+    private GlobalState State => GetState<GlobalState>();
+    private ChipsMvuHandler _chipsMvuAdapter;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender) BuildingId = BuildingId;
+        base.OnAfterRender(firstRender);
+    }
+ 
+
+
+    [Parameter]
+    public string BuildingId
+    {
+        get => _buildingId;
+        set
+        {
+            Mediator.Send(new GlobalState.LoadBuilding(value));
+            _buildingId = value;
+            _chipsMvuAdapter = new ChipsMvuHandler(_buildingId, Mediator, new []
+            {
+                (State.CurrentBuilding.Attics, AtticsChip),
+                (State.CurrentBuilding.ClassifiedArea, ClassifiedAreaChip),
+                (State.CurrentBuilding.Basement, BasementChip),
+                (State.CurrentBuilding.Cellar, CellarChip),
+                (State.CurrentBuilding.SewageServices, SewageServicesChip),
+                (State.CurrentBuilding.TownGas, TownGasChip),
+                (State.CurrentBuilding.SeparateElectricMeters, SeparateElectricMetersChip),
+                (State.CurrentBuilding.SeparateWaterMeters, SeparateWaterMetersChip)
+            });
+        }
+    }
+    
+    
+    private string BuildingLabelText
+    {
+        get => State.CurrentBuilding.Label;
+        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new BuildingLabel(value)));
+    }
+
+    private string WantAdLinkText
+    {
+        get => State.CurrentBuilding.WantAddLink;
+        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new WantAdLink(value)));
+    }
+
+    private string AddressText
+    {
+        get => State.CurrentBuilding.Address;
+        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new Address(value)));
+    }
+
+    private string LastWorksText
+    {
+        get => State.CurrentBuilding.LastWorks;
+        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new LastWorks(value)));
+    }
+
+
+    private string WantAdText
+    {
+        get => State.CurrentBuilding.WantAddText;
+        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new WantAdText(value)));
+    }
+
+    private string CommentsText
+    {
+        get => State.CurrentBuilding.Comments;
+        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new Comments(value)));
+    }
+
+    private int SellingPriceValue
+    {
+        get => State.CurrentBuilding.SellingPrice;
+        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new SellingPrice(value)));
+    }
+
+    private int PropertyTaxValue
+    {
+        get => State.CurrentBuilding.PropertyTax;
+        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new PropertyTax(value)));
+    }
+
+    private int SurfaceValue
+    {
+        get => State.CurrentBuilding.Surface;
+        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new Surface(value)));
+    }
+
+    private int BuildingYearValue
+    {
+        get => State.CurrentBuilding.BuildYear;
+        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new BuildYear(value)));
+    }
+
+    private DateTime? LastRoofRepairValue
+    {
+        get => State.CurrentBuilding.LastRoofRepair;
+        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new LastRoofRepair(value)));
+    }
+
+    private DateTime? LastFacadeRepairValue
+    {
+        get => State.CurrentBuilding.LastFacadeRepair;
+        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new LastFacadeRepair(value)));
+    }
+
+    private void OnRoofValueChange(int value) => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new RoofCondition(value)));
+    private void OnFacadeValueChange(int value) => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new FacadeCondition(value)));
+    private void OnBoilerValueChange(int value) => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new BoilerCondition(value)));
+    
+    private void OnWantAddClicked() => Mediator.Send(new GlobalState.OpenWantAdLink(State.CurrentBuilding.WantAddLink));
+    private void OnAddressClicked() => Mediator.Send(new GlobalState.OpenBuildingAddress(State.CurrentBuilding.Address));
+
+
+    MudChip selected2;
+
+    private string _buildingId;
+
+    MudChip AtticsChip;
+    MudChip ClassifiedAreaChip;
+    MudChip BasementChip;
+    MudChip CellarChip;
+    MudChip SewageServicesChip;
+    MudChip TownGasChip;
+    MudChip SeparateElectricMetersChip;
+    MudChip SeparateWaterMetersChip;
+
+    private class ChipsMvuHandler
+    {
+        private readonly string _buildingId;
+        private readonly IMediator _mediator;
+
+        public ChipsMvuHandler(string buildingId, IMediator mediator, (bool value, MudChip chip)[] handledChips)
+        {
+            _buildingId = buildingId;
+            _mediator = mediator;
+            _SelectedChips = handledChips.Where(a => a.value).Select(a => a.chip).ToArray();
+        }
+
+        MudChip[] _SelectedChips;
+
+        public MudChip[] Selected
+        {
+            get => _SelectedChips;
+            set
+            {
+                var changedChip = GetChangedChip(value);
+                _mediator.Send(new GlobalState.ChangeValue(_buildingId, changedChip));
+                _SelectedChips = value;
+            }
+        }
+
+        private IBuildingValue GetChangedChip(MudChip[] newValue)
+        {
+            var selectedChips = newValue.Except(_SelectedChips, new ChipsEquality());
+            var unselectedChips = _SelectedChips.Except(newValue, new ChipsEquality());
+
+            if (selectedChips.Any())
+            {
+                var chip = selectedChips.First();
+                return Activator.CreateInstance(chip.Tag as Type, args:new object?[]{ true}) as IBuildingValue;
+            }
+
+            if (unselectedChips.Any())
+            {
+                var chip = unselectedChips.First();
+                return Activator.CreateInstance(chip.Tag as Type, args:new object?[]{ false}) as IBuildingValue;
+            }
+
+            throw new Exception("should not append");
+
+        }
+
+        private class ChipsEquality : IEqualityComparer<MudChip>
+        {
+            public bool Equals(MudChip? x, MudChip? y) => x.Tag == y.Tag;
+
+            public int GetHashCode(MudChip obj) => obj.Tag.GetHashCode();
+        }
+    }
+}
