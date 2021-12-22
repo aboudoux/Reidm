@@ -5,15 +5,17 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{40C9F23E-6355-4A54-88FA-B600B9FC73F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reidm.Application", "Backend\Reidm.Application\Reidm.Application.csproj", "{035C078A-5965-4A0F-BCE5-F82AA38B7804}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reidm.Application", "Backend\Reidm.Application\Reidm.Application.csproj", "{035C078A-5965-4A0F-BCE5-F82AA38B7804}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reidm.Domain", "Backend\Reidm.Domain\Reidm.Domain.csproj", "{2AAE0FE4-439E-4734-806B-B6B3B5469028}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reidm.Domain", "Backend\Reidm.Domain\Reidm.Domain.csproj", "{2AAE0FE4-439E-4734-806B-B6B3B5469028}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reidm.Infrastructure", "Backend\Reidm.Infrastructure\Reidm.Infrastructure.csproj", "{7EE13EF4-12AB-4970-B3AC-5CD55125616C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reidm.Infrastructure", "Backend\Reidm.Infrastructure\Reidm.Infrastructure.csproj", "{7EE13EF4-12AB-4970-B3AC-5CD55125616C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reidm.Domain.Tests", "Backend\Reidm.Domain.Tests\Reidm.Domain.Tests.csproj", "{7F09533E-D10D-4ECE-9F7E-E0485D6D9822}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reidm.Domain.Tests", "Backend\Reidm.Domain.Tests\Reidm.Domain.Tests.csproj", "{7F09533E-D10D-4ECE-9F7E-E0485D6D9822}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reidm.Web", "Reidm.Web\Reidm.Web.csproj", "{79FE9E49-F50B-4D52-88F5-7139DE0D3546}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reidm.Web", "Reidm.Web\Reidm.Web.csproj", "{79FE9E49-F50B-4D52-88F5-7139DE0D3546}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reidm.infrastructure.Tests", "Backend\Reidm.infrastructure.Tests\Reidm.infrastructure.Tests.csproj", "{9894A819-D3A2-45CB-85DB-725D9D846D0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{79FE9E49-F50B-4D52-88F5-7139DE0D3546}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79FE9E49-F50B-4D52-88F5-7139DE0D3546}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79FE9E49-F50B-4D52-88F5-7139DE0D3546}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9894A819-D3A2-45CB-85DB-725D9D846D0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9894A819-D3A2-45CB-85DB-725D9D846D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9894A819-D3A2-45CB-85DB-725D9D846D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9894A819-D3A2-45CB-85DB-725D9D846D0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +56,7 @@ Global
 		{2AAE0FE4-439E-4734-806B-B6B3B5469028} = {40C9F23E-6355-4A54-88FA-B600B9FC73F3}
 		{7EE13EF4-12AB-4970-B3AC-5CD55125616C} = {40C9F23E-6355-4A54-88FA-B600B9FC73F3}
 		{7F09533E-D10D-4ECE-9F7E-E0485D6D9822} = {40C9F23E-6355-4A54-88FA-B600B9FC73F3}
+		{9894A819-D3A2-45CB-85DB-725D9D846D0B} = {40C9F23E-6355-4A54-88FA-B600B9FC73F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {62CD437E-DD05-4A54-811A-DFFA41645886}
