@@ -9,14 +9,35 @@ on:
 jobs:
   build:
 
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
-    steps:    
-    - name: script
-      run: test.bat
-    # - name: Restore dependencies
-    #  run: dotnet restore
-    # - name: Build
-    #  run: dotnet build --no-restore
-    # - name: Test
-    #  run: dotnet test --no-build --verbosity normal
+    steps:       
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.x.x    
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+    - name: publish
+      run: dotnet publish -c Release -o ../webapp -r linux-x64
+          
+    - name: Copy folder content recursively to remote
+      uses: garygrossgarten/github-action-scp@release
+      with:
+          local: ../webapp
+          remote: /home/aurelien/webapp
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.LOGIN }}
+          password: ${{ secrets.PASSWORD }}    
+          concurrency: 4
+          rmRemote: true
+          
+   
+    #- name: Deploy
+    #  run: ..\deploy.bat
+    #  shell: cmd
