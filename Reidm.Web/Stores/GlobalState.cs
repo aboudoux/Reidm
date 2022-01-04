@@ -16,7 +16,22 @@ public class GlobalState : State<GlobalState>
 		CurrentBuilding = BuildingResult.Empty();
 	}
 
-	public record NavigateTo(string Url, bool NewTab) : IAction;
+	public record NavigateTo : IAction
+	{
+		public string Url { get; }
+		public bool NewTab { get; }
+
+		public NavigateTo(string url, bool newTab)
+		{
+			Url = !string.IsNullOrWhiteSpace(url) && 
+			      (url.ToLower().StartsWith("http://") ||
+			      url.ToLower().StartsWith("https://"))
+				? url
+				: "http://" + url;
+
+			NewTab = newTab;
+		}
+	}
 
 	public record AddBuildingToStudy(string Label) : IAction;
 
