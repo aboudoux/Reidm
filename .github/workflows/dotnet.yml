@@ -1,8 +1,6 @@
 name: .NET
 
-on:
-  push:
-    branches: [ master ]
+on: [push, pull_request]
   
 jobs:
   build:
@@ -20,10 +18,13 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    
     - name: publish
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       run: dotnet publish -c Release -o ../webapp -r linux-x64
           
     - name: stopping service
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       uses: appleboy/ssh-action@master
       env:
         PASSWORD: ${{ secrets.PASSWORD }}
@@ -36,6 +37,7 @@ jobs:
         script: echo $PASSWORD | sudo -S systemctl stop reidm
           
     - name: Copy folder content recursively to remote
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       uses: garygrossgarten/github-action-scp@release
       with:
           local: ../webapp
@@ -47,6 +49,7 @@ jobs:
           rmRemote: true
           
     - name: restarting service
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       uses: appleboy/ssh-action@master
       env:
         PASSWORD: ${{ secrets.PASSWORD }}
