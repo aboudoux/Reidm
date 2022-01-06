@@ -74,8 +74,6 @@ namespace Reidm.Infrastructure
             private readonly ISerializer _serializer;
             private readonly Queue<IDomainEvent> _blockingCollection = new();   
             
-            private static readonly object Sync = new object();
-
             public BackGroundWriter(string filePath, ISerializer serializer)
             {
                 _filePath = filePath;
@@ -84,20 +82,16 @@ namespace Reidm.Infrastructure
             
             public void Save(IDomainEvent @event) => _blockingCollection.Enqueue(@event);
 
-            public Task Flush()
+            public async Task Flush()
             {
-                lock (Sync)
+                while (_blockingCollection.Count > 0)
                 {
-                    while (_blockingCollection.Count > 0)
-                    {
-                        var eventToSerialize = _blockingCollection.Dequeue();
-                        if(eventToSerialize == null)
-                            continue;
+                    var eventToSerialize = _blockingCollection.Dequeue();
+                    if(eventToSerialize == null)
+                        continue;
 
-                        File.AppendAllText(_filePath, _serializer.Serialize(eventToSerialize) + Environment.NewLine);
-                    }
-                }
-                return Task.CompletedTask;
+                    await File.AppendAllTextAsync(_filePath, _serializer.Serialize(eventToSerialize) + Environment.NewLine);
+				}
             }           
         }        
     }

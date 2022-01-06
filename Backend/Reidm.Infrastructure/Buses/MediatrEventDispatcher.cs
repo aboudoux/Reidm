@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Reidm.Domain.Common;
 using Reidm.Domain.Common.Events;
 
 namespace Reidm.Infrastructure.Buses

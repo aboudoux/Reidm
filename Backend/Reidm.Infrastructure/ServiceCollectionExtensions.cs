@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Reidm.Application.Buildings;
@@ -17,8 +16,6 @@ namespace Reidm.Infrastructure {
 
 		public static void RegisterApplicationDependencies(this IServiceCollection services, string databasePath, Action<IServiceCollection> config = null)
 		{
-			if (string.IsNullOrWhiteSpace(databasePath)) throw new ArgumentNullException(nameof(databasePath));
-
 			config?.Invoke(services);
 
 			services.AddMediatR(typeof(BuildingQueryHandler).Assembly, typeof(BuildingEventHandler).Assembly);
