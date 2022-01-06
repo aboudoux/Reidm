@@ -18,7 +18,7 @@ namespace Reidm.infrastructure.Tests.Steps {
 		protected StepBase()
 		{
 			IServiceCollection services = new ServiceCollection();
-			services.RegisterApplicationDependencies(a => a.TryAddScoped<IConnectedUserService, FakeConnectedUserService>());
+			services.RegisterApplicationDependencies("database.es",a => a.TryAddScoped<IConnectedUserService, FakeConnectedUserService>());
 
 			var provider = services.BuildServiceProvider();
 

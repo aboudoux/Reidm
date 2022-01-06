@@ -23,7 +23,7 @@ namespace Reidm.infrastructure.Tests.Unitary {
 		public async Task Test12()
 		{
 			IServiceCollection services = new ServiceCollection();
-			services.RegisterApplicationDependencies(a=>a.TryAddScoped<IConnectedUserService, FakeConnectedUserService>());
+			services.RegisterApplicationDependencies("database.es",a=>a.TryAddScoped<IConnectedUserService, FakeConnectedUserService>());
 
 			var provider = services.BuildServiceProvider();
 
