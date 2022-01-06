@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.Configuration;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Reidm.Application.Buildings;
@@ -14,8 +15,10 @@ namespace Reidm.Infrastructure {
 	public static class ServiceCollectionExtensions 
 	{
 
-		public static void RegisterApplicationDependencies(this IServiceCollection services, Action<IServiceCollection> config = null)
+		public static void RegisterApplicationDependencies(this IServiceCollection services, string databasePath, Action<IServiceCollection> config = null)
 		{
+			if (string.IsNullOrWhiteSpace(databasePath)) throw new ArgumentNullException(nameof(databasePath));
+
 			config?.Invoke(services);
 
 			services.AddMediatR(typeof(BuildingQueryHandler).Assembly, typeof(BuildingEventHandler).Assembly);
@@ -24,9 +27,9 @@ namespace Reidm.Infrastructure {
 			services.TryAddScoped<IConnectedUserService, EmptyConnectedUserService>();
 			services.TryAddScoped<ICommandBus, MediatrCommandBus>();
 			services.TryAddScoped<IQueryBus, MediatrQueryBus>();
-
-			services.TryAddSingleton<IEventStore, FileEventStoreWithCache>();
 			services.TryAddSingleton<ISerializer, CustomJsonSerializer>();
+
+			services.TryAddSingleton<IEventStore>(a=>new FileEventStoreWithCache(a.GetRequiredService<ISerializer>(), databasePath));
 			services.TryAddSingleton<IDatabaseRepository, InMemoryDatabaseRepository>();
 		}
 	}
