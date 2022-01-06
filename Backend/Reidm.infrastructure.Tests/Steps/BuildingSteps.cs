@@ -25,12 +25,14 @@ namespace Reidm.infrastructure.Tests.Steps
 		}
 
 
+		[Given(@"J'ajoute un nouvel immeuble a étudier du nom de ""([^""]*)""")]
 		[When(@"J'ajoute un nouvel immeuble a étudier du nom de ""([^""]*)""")]
 		public async Task WhenJajouteUnNouvelImmeubleAEtudierDuNomDe(BuildingLabel label)
 		{
 			await SendCommand(new AddBuildingToStudy(label));
 		}
 
+		[Given(@"Je modifie la valeur ""([^""]*)"" de l'immeuble ""([^""]*)"" en (.*)")]
 		[When(@"Je modifie la valeur ""([^""]*)"" de l'immeuble ""([^""]*)"" en (.*)")]
 		public async Task WhenJeModifieLaValeurDeLimmeubleEn(string data, BuildingLabel building, string value)
 		{
@@ -107,16 +109,12 @@ namespace Reidm.infrastructure.Tests.Steps
 		{
 			(await Query(new GetAllBuildingToStudy())).First().BuildingLabel.Should().Be(label.Value);
 		}
-	}
 
-	[Binding]
-	public class StepTransformations
-	{
-		[StepArgumentTransformation]
-		public static BuildingLabel ToBuildingLabel(string label) => new(label);
-
-		[StepArgumentTransformation]
-		public static BuildingLabel[] ToBuildingLabels(Table table)
-			=> table.Rows.Select(row => new BuildingLabel(row["Immeuble"])).ToArray();
+		[Then(@"La liste des immeubles à étudier est")]
+		public async Task ThenLaListeDesImmeublesAEtudierEst(BuildingToStudyResult[] expected)
+		{
+			(await Query(new GetAllBuildingToStudy())).Should()
+				.BeEquivalentTo(expected, a => a.Excluding(b => b.BuildingId));
+		}
 	}
 }

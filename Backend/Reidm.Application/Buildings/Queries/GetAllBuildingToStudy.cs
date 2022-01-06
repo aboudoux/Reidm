@@ -4,5 +4,5 @@ namespace Reidm.Application.Buildings.Queries;
 
 public class GetAllBuildingToStudy : IQuery<BuildingToStudyResult[]>{}
 
-public record BuildingToStudyResult(string BuildingId, string BuildingLabel);
+public record BuildingToStudyResult(string BuildingId, string BuildingLabel, int SellingPrice, int Surface);
 

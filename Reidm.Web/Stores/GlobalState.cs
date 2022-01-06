@@ -6,13 +6,13 @@ namespace Reidm.Web.Stores;
 
 public class GlobalState : State<GlobalState>
 {
-	public Dictionary<string,string> BuildingToStudy { get; set; }
+	public Dictionary<string,BuildingToStudyResult> BuildingsToStudy { get; set; }
 
 	public BuildingResult CurrentBuilding { get; set; }
 
 	public override void Initialize()
 	{
-		BuildingToStudy = new Dictionary<string, string>();
+		BuildingsToStudy = new Dictionary<string, BuildingToStudyResult>();
 		CurrentBuilding = BuildingResult.Empty();
 	}
 
@@ -45,5 +45,3 @@ public class GlobalState : State<GlobalState>
 
 	public record OpenBuildingAddress(string address) : IAction;
 }
-
-public record BuildingToStudyItem(string Id, string Label);

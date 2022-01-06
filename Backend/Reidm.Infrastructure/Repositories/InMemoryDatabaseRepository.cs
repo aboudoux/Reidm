@@ -50,7 +50,7 @@ public class InMemoryDatabaseRepository : IDatabaseRepository
 	public BuildingToStudyResult[] GetAllBuildingToStudy()
 	{
 		return _allBuildings.Select(a 
-			=> new BuildingToStudyResult(a.Key, a.Value.Label)).ToArray();
+			=> new BuildingToStudyResult(a.Key, a.Value.Label, a.Value.SellingPrice, a.Value.Surface)).ToArray();
 	}
 
 	public BuildingResult LoadBuilding(string buildingId)

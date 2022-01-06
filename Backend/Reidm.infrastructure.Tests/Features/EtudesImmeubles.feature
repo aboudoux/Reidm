@@ -46,4 +46,16 @@ Scenario: Modification des informations d'un immeuble
 	And L'information "SewageServices" de l'immeuble "TEST1" à pour valeur true
 	And L'information "TownGas" de l'immeuble "TEST1" à pour valeur true
 
-	
+Scenario: Liste des immeubles avec details sur prix et surface
+Given Aucun immeuble n'est à étudier
+	And J'ajoute un nouvel immeuble a étudier du nom de "TEST1"
+	And Je modifie la valeur "Surface" de l'immeuble "TEST1" en 20
+	And Je modifie la valeur "SellingPrice" de l'immeuble "TEST1" en 300000
+
+	And J'ajoute un nouvel immeuble a étudier du nom de "TEST2"
+	And Je modifie la valeur "Surface" de l'immeuble "TEST2" en 12
+	And Je modifie la valeur "SellingPrice" de l'immeuble "TEST2" en 250000
+Then La liste des immeubles à étudier est
+| Immeuble | Surface | SellingPrice |
+| TEST1    | 20      | 300000       |
+| TEST2    | 12      | 250000       |
