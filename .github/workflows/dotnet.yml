@@ -10,7 +10,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
     steps:       
     - uses: actions/checkout@v2
     - name: Setup .NET
@@ -26,6 +25,18 @@ jobs:
     - name: publish
       run: dotnet publish -c Release -o ../webapp -r linux-x64
           
+    - name: stopping service
+      uses: appleboy/ssh-action@master
+      env:
+        PASSWORD: ${{ secrets.PASSWORD }}
+      with:
+        envs: PASSWORD
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.LOGIN }}
+        password: ${{ secrets.PASSWORD }}
+        port: 22
+        script: echo $PASSWORD | sudo systemctl stop reidm
+          
     - name: Copy folder content recursively to remote
       uses: garygrossgarten/github-action-scp@release
       with:
@@ -36,4 +47,18 @@ jobs:
           password: ${{ secrets.PASSWORD }}    
           concurrency: 4
           rmRemote: true
+          
+    - name: restarting service
+      uses: appleboy/ssh-action@master
+      env:
+        PASSWORD: ${{ secrets.PASSWORD }}
+      with:
+        envs: PASSWORD
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.LOGIN }}
+        password: ${{ secrets.PASSWORD }}
+        port: 22
+        script: |
+          chmod +x /home/aurelien/reidm/Reidm.Web
+          echo $PASSWORD | sudo systemctl start reidm
          
