@@ -21,7 +21,7 @@ jobs:
     
     - name: publish
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-      run: dotnet publish -c Release -o ../webapp -r linux-x64
+      run: dotnet publish -c Release -o ../webapp -r linux-x64 --self-contained true
           
     - name: stopping service
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
