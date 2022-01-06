@@ -2,9 +2,9 @@ name: .NET
 
 on:
   push:
-    branches: [ test ]
+    branches: [ master ]
   pull_request:
-    branches: [ test ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -30,14 +30,10 @@ jobs:
       uses: garygrossgarten/github-action-scp@release
       with:
           local: ../webapp
-          remote: /home/aurelien/webapp
+          remote: /home/aurelien/reidm
           host: ${{ secrets.HOST }}
           username: ${{ secrets.LOGIN }}
           password: ${{ secrets.PASSWORD }}    
           concurrency: 4
           rmRemote: true
-          
-   
-    #- name: Deploy
-    #  run: ..\deploy.bat
-    #  shell: cmd
+         
