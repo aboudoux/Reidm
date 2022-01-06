@@ -1,22 +1,65 @@
 name: .NET
 
-on:
-  push:
-    branches: [ test ]
-  pull_request:
-    branches: [ test ]
-
+on: [push, pull_request]
+  
 jobs:
   build:
 
-    runs-on: self-hosted
-
-    steps:    
-    - name: script
-      run: test.bat
-    # - name: Restore dependencies
-    #  run: dotnet restore
-    # - name: Build
-    #  run: dotnet build --no-restore
-    # - name: Test
-    #  run: dotnet test --no-build --verbosity normal
+    runs-on: ubuntu-latest
+    steps:       
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.x.x    
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+    
+    - name: publish
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+      run: dotnet publish -c Release -o ../webapp -r linux-x64
+          
+    - name: stopping service
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+      uses: appleboy/ssh-action@master
+      env:
+        PASSWORD: ${{ secrets.PASSWORD }}
+      with:
+        envs: PASSWORD
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.LOGIN }}
+        password: ${{ secrets.PASSWORD }}
+        port: 22
+        script: echo $PASSWORD | sudo -S systemctl stop reidm
+          
+    - name: Copy folder content recursively to remote
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+      uses: garygrossgarten/github-action-scp@release
+      with:
+          local: ../webapp
+          remote: /home/aurelien/reidm
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.LOGIN }}
+          password: ${{ secrets.PASSWORD }}    
+          concurrency: 4
+          rmRemote: true
+          
+    - name: restarting service
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+      uses: appleboy/ssh-action@master
+      env:
+        PASSWORD: ${{ secrets.PASSWORD }}
+      with:
+        envs: PASSWORD
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.LOGIN }}
+        password: ${{ secrets.PASSWORD }}
+        port: 22
+        script: |
+          chmod +x /home/aurelien/reidm/Reidm.Web
+          echo $PASSWORD | sudo -S systemctl start reidm
+         

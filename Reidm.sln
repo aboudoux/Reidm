@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reidm.Web", "Reidm.Web\Reid
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reidm.infrastructure.Tests", "Backend\Reidm.infrastructure.Tests\Reidm.infrastructure.Tests.csproj", "{9894A819-D3A2-45CB-85DB-725D9D846D0B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reidm.Web.Tests", "Reidm.Web.Tests\Reidm.Web.Tests.csproj", "{3B25B6BC-3B28-4F96-A64E-C43B07F6CAB8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{9894A819-D3A2-45CB-85DB-725D9D846D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9894A819-D3A2-45CB-85DB-725D9D846D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9894A819-D3A2-45CB-85DB-725D9D846D0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B25B6BC-3B28-4F96-A64E-C43B07F6CAB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B25B6BC-3B28-4F96-A64E-C43B07F6CAB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B25B6BC-3B28-4F96-A64E-C43B07F6CAB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B25B6BC-3B28-4F96-A64E-C43B07F6CAB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

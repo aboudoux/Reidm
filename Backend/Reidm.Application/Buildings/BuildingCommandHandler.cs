@@ -1,7 +1,6 @@
 ﻿using Reidm.Application.Buildings.Commands;
 using Reidm.Application.Common;
 using Reidm.Domain.Buildings;
-using Reidm.Domain.Common;
 using Reidm.Domain.Common.Events;
 
 namespace Reidm.Application.Buildings {

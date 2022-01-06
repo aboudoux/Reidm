@@ -28,7 +28,9 @@ builder.Services.AddBlazorState(options => {
 	options.Assemblies = new[] { Assembly.GetExecutingAssembly() };
 });
 
-builder.Services.RegisterApplicationDependencies();
+
+var path = builder.Configuration["DatabasePath"];
+builder.Services.RegisterApplicationDependencies(path);
 
 var app = builder.Build();
 
