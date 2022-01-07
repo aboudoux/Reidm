@@ -6,9 +6,18 @@
 
 <MudPaper Width="300px" Style="Position: relative;">
     <MudNavMenu>
-        @foreach (var item in State.BuildingToStudy)
+        @foreach (var item in State.BuildingsToStudy)
         {
-            <MudNavLink Href="@("/building/" + item.Key)" Icon="@Icons.Filled.OtherHouses">@item.Value</MudNavLink>
+            <MudNavLink Href="@("/building/" + item.Key)" Icon="@Icons.Filled.OtherHouses">
+                <div class="grid grid-rows-2">
+                    <MudText Typo="Typo.body1" Align="Align.Left" Style="font-weight: bold">@item.Value.BuildingLabel</MudText>
+                    <div class="flex space-x-20">
+                        <MudText Typo="Typo.body2">@item.Value.SellingPrice €</MudText>
+                        <MudText Typo="Typo.body2">@item.Value.Surface m²</MudText>
+                    </div>
+                    
+                </div>
+            </MudNavLink>
             <MudDivider/>
         }
     </MudNavMenu>

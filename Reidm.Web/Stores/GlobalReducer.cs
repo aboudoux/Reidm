@@ -41,7 +41,7 @@ namespace Reidm.Web.Stores
 		public async Task<Unit> Handle(GlobalState.GetAllBuildingToStudy action, CancellationToken cancellationToken)
 		{
 			var result = await _queryBus.QueryAsync(new GetAllBuildingToStudy());
-			State.BuildingToStudy = result.ToDictionary(a=>a.BuildingId, b=>b.BuildingLabel);
+			State.BuildingsToStudy = result.ToDictionary(a=>a.BuildingId, b=>b);
 			return Unit.Value;
 		}
 
@@ -79,8 +79,16 @@ namespace Reidm.Web.Stores
 				_ => throw new ArgumentOutOfRangeException()
 			};
 
-			if (action.Value is BuildingLabel l && State.BuildingToStudy.ContainsKey(action.BuildingId))
-				State.BuildingToStudy[action.BuildingId] = l.Value;
+			if (State.BuildingsToStudy.ContainsKey(action.BuildingId))
+			{
+				State.BuildingsToStudy[action.BuildingId] = action.Value switch
+				{
+					BuildingLabel l => State.BuildingsToStudy[action.BuildingId] with {BuildingLabel = l.Value},
+					Surface s => State.BuildingsToStudy[action.BuildingId] with {Surface = s.Value},
+					SellingPrice s => State.BuildingsToStudy[action.BuildingId] with {SellingPrice = s.Value},
+					_ => State.BuildingsToStudy[action.BuildingId]
+				};
+			}
 
 			_snackbar.Add($"{ValueLabel()} enregistré(e)(s)", Severity.Success);
 			return Unit.Value;
