@@ -10,3 +10,11 @@
 {"$type":"19","Info":{"$type":"4","Value":"AURELIEN"},"AggregateId":"66ddd8a0-d746-4fbb-90a5-b0647145e005","Sequence":6,"UserName":"Empty","CreationDate":"2022-01-07T17:06:42.3463956+01:00"}
 {"$type":"19","Info":{"$type":"4","Value":"immeuble de foire, plein centre"},"AggregateId":"66ddd8a0-d746-4fbb-90a5-b0647145e005","Sequence":7,"UserName":"Empty","CreationDate":"2022-01-07T17:07:05.7673763+01:00"}
 {"$type":"19","Info":{"$type":"11","Value":25000},"AggregateId":"66ddd8a0-d746-4fbb-90a5-b0647145e005","Sequence":8,"UserName":"Empty","CreationDate":"2022-01-07T17:09:15.8832872+01:00"}
+{"$type":"19","Info":{"$type":"9","Value":"fdg"},"AggregateId":"25ba3e1b-2bc5-4ac4-97c0-51b07e1e233c","Sequence":3,"UserName":"Empty","CreationDate":"2022-01-10T17:51:45.0236491+01:00"}
+{"$type":"19","Info":{"$type":"9","Value":""},"AggregateId":"25ba3e1b-2bc5-4ac4-97c0-51b07e1e233c","Sequence":4,"UserName":"Empty","CreationDate":"2022-01-10T17:51:54.3097491+01:00"}
+{"$type":"19","Info":{"$type":"9","Value":"sdf"},"AggregateId":"25ba3e1b-2bc5-4ac4-97c0-51b07e1e233c","Sequence":5,"UserName":"Empty","CreationDate":"2022-01-10T17:52:01.7346623+01:00"}
+{"$type":"19","Info":{"$type":"6","Value":true},"AggregateId":"25ba3e1b-2bc5-4ac4-97c0-51b07e1e233c","Sequence":6,"UserName":"Empty","CreationDate":"2022-01-10T17:52:06.3760219+01:00"}
+{"$type":"19","Info":{"$type":"16","Value":true},"AggregateId":"25ba3e1b-2bc5-4ac4-97c0-51b07e1e233c","Sequence":7,"UserName":"Empty","CreationDate":"2022-01-10T17:52:12.0437199+01:00"}
+{"$type":"19","Info":{"$type":"12","Value":true},"AggregateId":"25ba3e1b-2bc5-4ac4-97c0-51b07e1e233c","Sequence":8,"UserName":"Empty","CreationDate":"2022-01-10T17:52:12.565563+01:00"}
+{"$type":"19","Info":{"$type":"13","Value":true},"AggregateId":"25ba3e1b-2bc5-4ac4-97c0-51b07e1e233c","Sequence":9,"UserName":"Empty","CreationDate":"2022-01-10T17:52:13.0386799+01:00"}
+{"$type":"19","Info":{"$type":"2","Value":true},"AggregateId":"25ba3e1b-2bc5-4ac4-97c0-51b07e1e233c","Sequence":10,"UserName":"Empty","CreationDate":"2022-01-10T17:52:13.7665791+01:00"}
