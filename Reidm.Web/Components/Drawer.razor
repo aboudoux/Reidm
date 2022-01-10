@@ -1,8 +1,6 @@
 ﻿@using Reidm.Web.Stores
 @using Reidm.Application.Buildings.Queries
 @inherits BlazorState.BlazorStateComponent
-@inject IDialogService DialogService;
-
 
 <MudPaper Width="300px" Style="Position: relative;">
     <MudNavMenu>
@@ -23,8 +21,6 @@
     </MudNavMenu>
 
 </MudPaper>
-<MudFab Class="absolute top-50 right-0" Color="Color.Primary" Icon="@Icons.Material.Filled.Add" aria-label="add" Size="Size.Small" OnClick="DoubleClick"/>
-
 
 @code {
 
@@ -37,9 +33,5 @@
             Mediator.Send(new GlobalState.GetAllBuildingToStudy());
         }
         base.OnAfterRender(firstRender);
-    }
-
-    private void DoubleClick() {
-        DialogService.Show<DialogAddBuilding>("Ajouter un immeuble à étuder",  new DialogOptions() { DisableBackdropClick = true, CloseButton = true});
     }
 }

@@ -1,4 +1,6 @@
 ﻿@inherits LayoutComponentBase
+@inject IDialogService DialogService;
+
 
 <PageTitle>Reidm.Web</PageTitle>
 <MudLayout>
@@ -6,7 +8,7 @@
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudText Typo="Typo.h5" Class="ml-3">Reidm</MudText>
         <MudSpacer />
-        <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
+        <MudIconButton Icon="@Icons.Material.Filled.Add" Color="Color.Inherit" Edge="Edge.End" OnClick="ClickAddBuilding" />
     </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
         <Drawer />
@@ -21,5 +23,9 @@
     void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
+    }
+
+    private void ClickAddBuilding() {
+        DialogService.Show<DialogAddBuilding>("Ajouter un immeuble à étuder",  new DialogOptions() { DisableBackdropClick = true, CloseButton = true});
     }
 }
