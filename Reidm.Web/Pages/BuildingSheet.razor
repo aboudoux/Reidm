@@ -4,11 +4,9 @@
 @using MediatR
 @inherits BlazorState.BlazorStateComponent
 
-<MudPaper Elevation="5" Class="p-2 m-2">
-    <MudTextField @bind-Value="BuildingLabelText" Label="Label" Variant="Variant.Outlined"></MudTextField>
-</MudPaper>
-<div class="grid sm:grid-cols-2 gap-x-2 m-2 xs:grid-cols-1">
+<div class="grid sm:grid-cols-2 gap-x-2 m-2 xs:grid-cols-1 2xl:grid-cols-[1fr_400px_1fr]">
     <MudPaper Elevation="3" Class="p-2">
+        <MudTextField @bind-Value="BuildingLabelText" Label="Label" Variant="Variant.Outlined"></MudTextField>
         <MudTextField @bind-Value="WantAdLinkText" Label="Lien vers l'annonce" Variant="Variant.Outlined" AdornmentIcon="@Icons.Filled.Link" Adornment="Adornment.End" IconSize="Size.Small" OnAdornmentClick="OnWantAddClicked" AdornmentColor="Color.Info"></MudTextField>
         <MudTextField @bind-Value="WantAdText" Label="Texte de l'annonce" Variant="Variant.Outlined" Lines="3" AdornmentIcon="@Icons.Filled.EditNote" Adornment="Adornment.Start" IconSize="Size.Small"></MudTextField>
         <MudTextField @bind-Value="AddressText" Label="Adresse" Variant="Variant.Outlined" Lines="2" AdornmentIcon="@Icons.Outlined.LocationOn" Adornment="Adornment.End" IconSize="Size.Small" OnAdornmentClick="OnAddressClicked" AdornmentColor="Color.Info"></MudTextField>
@@ -18,8 +16,10 @@
             <MudTextField @bind-Value="SurfaceValue" Label="Surface" Variant="Variant.Outlined"></MudTextField>
             <MudTextField @bind-Value="BuildingYearValue" Label="Année construction" Variant="Variant.Outlined"></MudTextField>
         </div>
-        <MudTextField @bind-Value="LastWorksText" Label="Derniers travaux" Variant="Variant.Outlined" Lines="3" AdornmentIcon="@Icons.Filled.EditNote" Adornment="Adornment.Start" IconSize="Size.Small"></MudTextField>
-        <MudTextField @bind-Value="CommentsText" Label="Remarques" Variant="Variant.Outlined" Lines="3" AdornmentIcon="@Icons.Filled.EditNote" Adornment="Adornment.Start" IconSize="Size.Small"></MudTextField>
+        <div class="visible 2xl:invisible">
+            <MudTextField @bind-Value="LastWorksText" Label="Derniers travaux" Variant="Variant.Outlined" Lines="5"></MudTextField>
+            <MudTextField @bind-Value="CommentsText" Label="Remarques" Variant="Variant.Outlined" Lines="12"></MudTextField>
+        </div>
     </MudPaper>
     <MudPaper Elevation="3" Class="p-2">
         <MudPaper Elevation="5" Class="p-2">
@@ -63,6 +63,10 @@
                 <MudChip @ref="SeparateWaterMetersChip" Tag="@typeof(SeparateWaterMeters)" Text="Compteurs eaux séparés" Color="Color.Default" SelectedColor="Color.Success" Variant="Variant.Text"></MudChip>
             </MudChipSet>
         </MudPaper>
+    </MudPaper>
+    <MudPaper Elevation="3" Class="invisible 2xl:visible p-2">
+        <MudTextField @bind-Value="LastWorksText" Label="Derniers travaux" Variant="Variant.Outlined" Lines="11"></MudTextField>
+        <MudTextField @bind-Value="CommentsText" Label="Remarques" Variant="Variant.Outlined" Lines="29"></MudTextField>
     </MudPaper>
 </div>
 
