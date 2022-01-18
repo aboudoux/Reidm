@@ -8,7 +8,14 @@
     <MudPaper Elevation="3" Class="p-2">
         <MudTextField @bind-Value="BuildingLabelText" Label="Label" Variant="Variant.Outlined"></MudTextField>
         <MudTextField @bind-Value="WantAdLinkText" Label="Lien vers l'annonce" Variant="Variant.Outlined" AdornmentIcon="@Icons.Filled.Link" Adornment="Adornment.End" IconSize="Size.Small" OnAdornmentClick="OnWantAddClicked" AdornmentColor="Color.Info"></MudTextField>
-        <MudTextField @bind-Value="WantAdText" Label="Texte de l'annonce" Variant="Variant.Outlined" Lines="3" AdornmentIcon="@Icons.Filled.EditNote" Adornment="Adornment.Start" IconSize="Size.Small"></MudTextField>
+
+        <div class="visible 2xl:hidden">
+            <MudTextField @bind-Value="WantAdText" Label="Texte de l'annonce" Variant="Variant.Outlined" Lines="3"></MudTextField>
+        </div>
+        <div class="hidden 2xl:block">
+            <MudTextField @bind-Value="WantAdText" Label="Texte de l'annonce" Variant="Variant.Outlined" Lines="22"></MudTextField>
+        </div>
+       
         <MudTextField @bind-Value="AddressText" Label="Adresse" Variant="Variant.Outlined" Lines="2" AdornmentIcon="@Icons.Outlined.LocationOn" Adornment="Adornment.End" IconSize="Size.Small" OnAdornmentClick="OnAddressClicked" AdornmentColor="Color.Info"></MudTextField>
         <div class="grid grid-rows-2 gap-x-2 md:grid-cols-2 sm:grid-cols-1">
             <MudTextField @bind-Value="SellingPriceValue" Label="Prix de vente" Variant="Variant.Outlined" AdornmentIcon="@Icons.Filled.Euro" IconSize="Size.Small" Adornment="Adornment.Start"></MudTextField>
@@ -16,7 +23,7 @@
             <MudTextField @bind-Value="SurfaceValue" Label="Surface" Variant="Variant.Outlined"></MudTextField>
             <MudTextField @bind-Value="BuildingYearValue" Label="Année construction" Variant="Variant.Outlined"></MudTextField>
         </div>
-        <div class="visible 2xl:invisible">
+        <div class="visible 2xl:hidden">
             <MudTextField @bind-Value="LastWorksText" Label="Derniers travaux" Variant="Variant.Outlined" Lines="5"></MudTextField>
             <MudTextField @bind-Value="CommentsText" Label="Remarques" Variant="Variant.Outlined" Lines="12"></MudTextField>
         </div>
@@ -64,7 +71,7 @@
             </MudChipSet>
         </MudPaper>
     </MudPaper>
-    <MudPaper Elevation="3" Class="invisible 2xl:visible p-2">
+    <MudPaper Elevation="3" Class="hidden 2xl:block p-2">
         <MudTextField @bind-Value="LastWorksText" Label="Derniers travaux" Variant="Variant.Outlined" Lines="11"></MudTextField>
         <MudTextField @bind-Value="CommentsText" Label="Remarques" Variant="Variant.Outlined" Lines="29"></MudTextField>
     </MudPaper>
