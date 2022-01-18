@@ -30,14 +30,14 @@
             </MudChipSet>
             <div class="flex items-center">
                 <MudText Class="whitespace-nowrap mr-2" Typo="Typo.body2" Align="Align.Start">@($"Etat ({State.CurrentBuilding.BoilerCondition}/10)")</MudText>
-                <MudSlider T="int" Min="0" Max="10" Step="1" Value="@State.CurrentBuilding.BoilerCondition" ValueChanged="OnBoilerValueChange"></MudSlider>
+                <MudSlider T="int" Mvu="true" Min="0" Max="10" Step="1" Immediate="false" State="@State.CurrentBuilding.BoilerCondition" StateChanged="OnBoilerValueChange"></MudSlider>
             </div>
         </MudPaper>
         <MudPaper Elevation="5" Class="p-2 mt-2">
             <MudText Typo="Typo.h6" GutterBottom="true">Toiture</MudText>
             <div class="flex items-center">
                 <MudText Class="whitespace-nowrap mr-2" Typo="Typo.body2" Align="Align.Start">@($"Etat ({State.CurrentBuilding.RoofCondition}/10)")</MudText>
-                <MudSlider T="int" Min="0" Max="10" Step="1" Value="@State.CurrentBuilding.RoofCondition" ValueChanged="OnRoofValueChange"></MudSlider>
+                <MudSlider T="int" Mvu="true" Min="0" Max="10" Step="1" Immediate="false" State="@State.CurrentBuilding.RoofCondition" StateChanged="OnRoofValueChange"></MudSlider>
             </div>
             <MudDatePicker Editable="true" Label="Dernier remaniement" @bind-Date="LastRoofRepairValue"></MudDatePicker>
             
@@ -46,7 +46,7 @@
             <MudText Typo="Typo.h6" GutterBottom="true">Façade</MudText>
             <div class="flex items-center">
                 <MudText Class="whitespace-nowrap mr-2" Typo="Typo.body2">@($"Etat ({State.CurrentBuilding.FacadeCondition}/10)")</MudText>
-                <MudSlider T="int" Min="0" Max="10" Step="1" Value="@State.CurrentBuilding.FacadeCondition" ValueChanged="OnFacadeValueChange"></MudSlider>
+                <MudSlider T="int" Min="0" Max="10" Step="1" Immediate="false" Mvu="true" State="@State.CurrentBuilding.FacadeCondition" StateChanged="OnFacadeValueChange"></MudSlider>
             </div>
             <MudDatePicker Editable="true" Label="Dernier remaniement" @bind-Date="LastFacadeRepairValue"></MudDatePicker>
         </MudPaper>
