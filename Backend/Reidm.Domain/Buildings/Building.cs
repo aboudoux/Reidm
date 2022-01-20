@@ -12,17 +12,12 @@ namespace Reidm.Domain.Buildings {
 		}
 
 		public static Building ToStudy(BuildingLabel label) 
-			=> CreateNew<Building>(Guid.NewGuid().ToString(), new BuildingAddedToStudy(label));
+			=> CreateNew<Building>(BuildingId.CreateNew().ToString(), new BuildingAddedToStudy(label));
 
 		public void ChangeInfo(IBuildingValue buildingValue)
 		{
 			if(State.IsValueChanged(buildingValue))
 				RaiseEvent(new BuildingInfoChanged(buildingValue));
-		}
-
-		public void MakeContact()
-		{
-			RaiseEvent(new SellerContacted());
 		}
 	}
 }
