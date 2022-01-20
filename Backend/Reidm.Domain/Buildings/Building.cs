@@ -19,5 +19,10 @@ namespace Reidm.Domain.Buildings {
 			if(State.IsValueChanged(buildingValue))
 				RaiseEvent(new BuildingInfoChanged(buildingValue));
 		}
+
+		public void MakeContact()
+		{
+			RaiseEvent(new SellerContacted());
+		}
 	}
 }
