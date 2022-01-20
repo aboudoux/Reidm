@@ -4,6 +4,7 @@
 
 <MudPaper Width="300px" Style="Position: relative;">
     <MudNavMenu>
+        <MudNavGroup Title="A étudier">
         @foreach (var item in State.BuildingsToStudy)
         {
             <MudNavLink Href="@("/building/" + item.Key)" Icon="@Icons.Filled.OtherHouses">
@@ -18,6 +19,17 @@
             </MudNavLink>
             <MudDivider/>
         }
+        </MudNavGroup>
+        <MudDivider/>
+        <MudNavGroup Title="Contactés" />
+        <MudDivider/>
+        <MudNavGroup Title="Visites planifiées" />
+        <MudDivider/>
+        <MudNavGroup Title="Visités" />
+        <MudDivider/>
+        <MudNavGroup Title="Propositions" />
+        <MudDivider/>
+        <MudNavGroup Title="Abandonnés" />
     </MudNavMenu>
 
 </MudPaper>

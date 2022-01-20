@@ -127,7 +127,5 @@ namespace Reidm.Web.Stores
 			State.CurrentBuilding = await _queryBus.QueryAsync(new LoadBuilding(action.BuildingId));
 			return Unit.Value;
 		}
-
-		
 	}
 }

@@ -23,11 +23,14 @@ public class GlobalState : State<GlobalState>
 
 		public NavigateTo(string url, bool newTab)
 		{
-			Url = !string.IsNullOrWhiteSpace(url) && 
-			      (url.ToLower().StartsWith("http://") ||
-			      url.ToLower().StartsWith("https://"))
-				? url
-				: "http://" + url;
+			var _url = url == null ? string.Empty : url;
+			_url = _url.Trim().ToLower();
+
+			Url = !string.IsNullOrWhiteSpace(_url) && 
+			      (_url.StartsWith("http://") ||
+			       _url.StartsWith("https://")) || _url.StartsWith("/")
+				? _url
+				: "http://" + _url;
 
 			NewTab = newTab;
 		}
