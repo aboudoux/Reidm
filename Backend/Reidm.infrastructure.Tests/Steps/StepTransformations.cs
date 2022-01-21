@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Reidm.Application.Buildings.Queries;
 using Reidm.Application.Contacts.Queries;
 using Reidm.Domain.Buildings.Values;
@@ -30,7 +29,7 @@ public class StepTransformations
 	[StepArgumentTransformation]
 	public static ContactResult[] ToContactResult(Table table)
 		=> table.Rows.Select(row =>
-			new ContactResult(string.Empty, row["Name"], row["Phone"], row["Email"]))
+			new ContactResult(string.Empty, row["Name"], row["Phone"], row["Email"], row["Quality"], row["Infos"]))
 			.ToArray();
 
 	[StepArgumentTransformation]

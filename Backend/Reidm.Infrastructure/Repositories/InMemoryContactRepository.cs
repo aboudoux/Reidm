@@ -15,7 +15,7 @@ public class InMemoryContactRepository : IContactRepository
 
 	public void Add(ContactId contactId, ContactName name)
 	{
-		_contact.Add(contactId, new ContactResult(contactId.Value, name.Value, string.Empty, string.Empty));
+		_contact.Add(contactId, new ContactResult(contactId.Value, name.Value, string.Empty, string.Empty, string.Empty, string.Empty));
 	}
 
 	public void ChangeValue(ContactId contactId, IContactValue value)
@@ -26,6 +26,9 @@ public class InMemoryContactRepository : IContactRepository
 			ContactPhone i => _contact[contactId] with {Phone = i.Value},
 			ContactEmail i => _contact[contactId] with {Email = i.Value},
 			ContactName i => _contact[contactId] with {Name = i.Value},
+			ContactAdditionalInformation i => _contact[contactId] with{ AdditionalInfo = i.Value},
+			ContactQualityOwner => _contact[contactId] with{ Quality = "Propriétaire"},
+			ContactQualityRealEstateAgent => _contact[contactId] with{ Quality = "Agent immobilier"},
 			_ => throw new ArgumentOutOfRangeException(nameof(value), value, null)
 		};
 	}

@@ -42,6 +42,8 @@ public class ContactSteps : StepBase
 			"Phone" => new ContactPhone(value) as IContactValue,
 			"Email" => new ContactEmail(value),
 			"Name" => new ContactName(value),
+			"Infos" => new ContactAdditionalInformation(value),
+			"Quality" => value == "Propriétaire" ? new ContactQualityOwner() : new ContactQualityRealEstateAgent()
 		};
 
 		await SendCommand(new ChangeContactInformation(new ContactId(selectedContact.ContactId), info));

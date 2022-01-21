@@ -6,8 +6,8 @@ Scenario: Ajout d'un nouveau contact
 	Given Aucun contact n'est visible dans l'application
 	When J'ajoute un nouveau contact du nom de "MR TEST"
 	Then La liste des contacts est
-	| Name    | Phone | Email |
-	| MR TEST |       |       |
+	| Name    | Phone | Email | Quality | Infos |
+	| MR TEST |       |       |         |       |
 
 Scenario: Modification d'un contact
 	Given Aucun contact n'est visible dans l'application
@@ -15,14 +15,19 @@ Scenario: Modification d'un contact
 	And J'ajoute un nouveau contact du nom de "TEST2"
 	When Je modifie la valeur "Phone" du contact "TEST1" en "01.01.01.01.01"
 	And Je modifie la valeur "Email" du contact "TEST1" en "TEST1@TEST1.com"
+	And Je modifie la valeur "Quality" du contact "TEST1" en "Propriétaire"
+	And Je modifie la valeur "Infos" du contact "TEST1" en "test 1"
+	And Je modifie la valeur "Name" du contact "TEST1" en "LOL1"
+
 	And Je modifie la valeur "Phone" du contact "TEST2" en "02.02.02.02.02"
 	And Je modifie la valeur "Email" du contact "TEST2" en "TEST2@TEST2.com"
-	And Je modifie la valeur "Name" du contact "TEST1" en "LOL1"
+	And Je modifie la valeur "Quality" du contact "TEST2" en "Agent"
+	And Je modifie la valeur "Infos" du contact "TEST2" en "test 2"
 	And Je modifie la valeur "Name" du contact "TEST2" en "LOL2"
 	Then La liste des contacts est
-	| Name | Phone          | Email           |
-	| LOL1 | 01.01.01.01.01 | TEST1@TEST1.com |
-	| LOL2 | 02.02.02.02.02 | TEST2@TEST2.com |
+	| Name | Phone          | Email           | Quality          | Infos  |
+	| LOL1 | 01.01.01.01.01 | TEST1@TEST1.com | Propriétaire     | test 1 |
+	| LOL2 | 02.02.02.02.02 | TEST2@TEST2.com | Agent immobilier | test 2 |
 
 Scenario: Suppression d'un contact
 	Given Une liste de contacts exitants
@@ -33,6 +38,6 @@ Scenario: Suppression d'un contact
 	When Je supprime le contact "TEST2"
 	When Je supprime le contact "TEST3"
 	Then La liste des contacts est
-	| Name  | Phone | Email |
-	| TEST1 |       |       |
+	| Name  | Phone | Email | Quality | Infos |
+	| TEST1 |       |       |         |       |
 
