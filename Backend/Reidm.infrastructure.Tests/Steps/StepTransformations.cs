@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Reidm.Application.Buildings.Queries;
+using Reidm.Application.Contacts.Queries;
 using Reidm.Domain.Buildings.Values;
+using Reidm.Domain.Contacts.Values;
 using TechTalk.SpecFlow;
 
 namespace Reidm.infrastructure.Tests.Steps;
@@ -20,4 +22,14 @@ public class StepTransformations
 	public static BuildingToStudyResult[] ToBuildingToStudyResult(Table table)
 		=> table.Rows.Select(row =>
 			new BuildingToStudyResult(string.Empty, row["Immeuble"], int.Parse(row["SellingPrice"]), int.Parse(row["Surface"]))).ToArray();
+
+	[StepArgumentTransformation]
+	public static ContactName ToContactName(string contactName)
+		=> new(contactName);
+
+	[StepArgumentTransformation]
+	public static ContactResult[] ToContactResult(Table table)
+		=> table.Rows.Select(row =>
+			new ContactResult(string.Empty, row["Name"], row["Phone"], row["Email"]))
+			.ToArray();
 }

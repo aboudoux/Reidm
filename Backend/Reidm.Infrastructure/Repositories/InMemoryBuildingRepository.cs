@@ -4,17 +4,17 @@ using Reidm.Domain.Buildings.Values;
 
 namespace Reidm.Infrastructure.Repositories;
 
-public class InMemoryDatabaseRepository : IDatabaseRepository
+public class InMemoryBuildingRepository : IBuildingRepository
 {
-	private Dictionary<string, BuildingResult> _allBuildings = new();
+	private Dictionary<BuildingId, BuildingResult> _allBuildings = new();
 
-	public void AddBuildingToStudy(string buildingId, BuildingLabel label)
+	public void AddBuildingToStudy(BuildingId buildingId, BuildingLabel label)
 	{
 		if(_allBuildings.ContainsKey(buildingId)) return;
 		_allBuildings.Add(buildingId, new BuildingResult {Label = label.Value});
 	}
 
-	public void ChangeBuildingInfo(string buildingId, IBuildingValue info)
+	public void ChangeBuildingInfo(BuildingId buildingId, IBuildingValue info)
 	{
 		if (!_allBuildings.ContainsKey(buildingId)) throw new ArgumentException($"Building {buildingId} not found");
 
@@ -50,10 +50,10 @@ public class InMemoryDatabaseRepository : IDatabaseRepository
 	public BuildingToStudyResult[] GetAllBuildingToStudy()
 	{
 		return _allBuildings.Select(a 
-			=> new BuildingToStudyResult(a.Key, a.Value.Label, a.Value.SellingPrice, a.Value.Surface)).ToArray();
+			=> new BuildingToStudyResult(a.Key.Value, a.Value.Label, a.Value.SellingPrice, a.Value.Surface)).ToArray();
 	}
 
-	public BuildingResult LoadBuilding(string buildingId)
+	public BuildingResult LoadBuilding(BuildingId buildingId)
 	{
 		if (!_allBuildings.ContainsKey(buildingId)) throw new ArgumentException($"Building {buildingId} not found");
 		return _allBuildings[buildingId];

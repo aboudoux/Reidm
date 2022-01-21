@@ -12,7 +12,7 @@ namespace Reidm.Domain.Buildings {
 		}
 
 		public static Building ToStudy(BuildingLabel label) 
-			=> CreateNew<Building>(BuildingId.CreateNew().ToString(), new BuildingAddedToStudy(label));
+			=> CreateNew<Building>(BuildingId.CreateNew().Value, new BuildingAddedToStudy(label));
 
 		public void ChangeInfo(IBuildingValue buildingValue)
 		{

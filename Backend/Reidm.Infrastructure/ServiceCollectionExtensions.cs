@@ -27,7 +27,8 @@ namespace Reidm.Infrastructure {
 			services.TryAddSingleton<ISerializer, CustomJsonSerializer>();
 
 			services.TryAddSingleton<IEventStore>(a=>new FileEventStoreWithCache(a.GetRequiredService<ISerializer>(), databasePath));
-			services.TryAddSingleton<IDatabaseRepository, InMemoryDatabaseRepository>();
+			services.TryAddSingleton<IBuildingRepository, InMemoryBuildingRepository>();
+			services.TryAddSingleton<IContactRepository, InMemoryContactRepository>();
 		}
 	}
 

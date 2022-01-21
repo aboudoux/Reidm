@@ -28,7 +28,7 @@ namespace Reidm.Application.Buildings {
 
 		public async Task<CommandResult> Handle(ChangeBuildingInformation command, CancellationToken cancellationToken)
 		{
-			var building = await _eventBroker.GetAggregate<Building>(command.BuildingId);
+			var building = await _eventBroker.GetAggregate<Building>(command.BuildingId.Value);
 			building.ChangeInfo(command.Information);
 
 			if(building.UncommittedEvents.IsEmpty)

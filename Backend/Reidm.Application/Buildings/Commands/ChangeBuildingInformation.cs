@@ -3,4 +3,4 @@ using Reidm.Domain.Buildings.Values;
 
 namespace Reidm.Application.Buildings.Commands;
 
-public record ChangeBuildingInformation(string BuildingId, IBuildingValue Information) : ICommand;
+public record ChangeBuildingInformation(BuildingId BuildingId, IBuildingValue Information) : ICommand;

@@ -3,7 +3,7 @@
 namespace Reidm.Domain.Contacts.Values;
 
 [SerializableTypeIdentifier("27")]
-public record ContactId(Guid Value) : IContactValue 
+public record ContactId(string Value) : IContactValue 
 {
-	public static ContactId CreateNew() => new(Guid.NewGuid());
+	public static ContactId CreateNew() => new(Guid.NewGuid().ToString());
 }

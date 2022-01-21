@@ -47,7 +47,7 @@ namespace Reidm.Web.Stores
 
 		public async Task<Unit> Handle(GlobalState.ChangeValue action, CancellationToken cancellationToken)
 		{
-			var result = await _commandBus.SendAsync(new ChangeBuildingInformation(action.BuildingId, action.Value));
+			var result = await _commandBus.SendAsync(new ChangeBuildingInformation(new BuildingId(action.BuildingId), action.Value));
 			if (result == CommandResult.NotApplied())
 				return Unit.Value;
 
@@ -124,7 +124,7 @@ namespace Reidm.Web.Stores
 
 		public async Task<Unit> Handle(GlobalState.LoadBuilding action, CancellationToken cancellationToken)
 		{
-			State.CurrentBuilding = await _queryBus.QueryAsync(new LoadBuilding(action.BuildingId));
+			State.CurrentBuilding = await _queryBus.QueryAsync(new LoadBuilding(new BuildingId(action.BuildingId)));
 			return Unit.Value;
 		}
 	}

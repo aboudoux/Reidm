@@ -7,9 +7,9 @@ public class BuildingQueryHandler :
 	IQueryHandler<GetAllBuildingToStudy, BuildingToStudyResult[]>,
 	IQueryHandler<LoadBuilding, BuildingResult>
 {
-	private readonly IDatabaseRepository _repository;
+	private readonly IBuildingRepository _repository;
 
-	public BuildingQueryHandler(IDatabaseRepository repository)
+	public BuildingQueryHandler(IBuildingRepository repository)
 	{
 		_repository = repository ?? throw new ArgumentNullException(nameof(repository));
 	}

@@ -2,7 +2,7 @@
 
 Cett fonctionnalité permet de gérer les immeubles à étudier, c'est à dire la collecte des informations
 pour prendre une décision d'achat.
-pour l'instant il n'y a aps de traitement spécifique. juste de l'enregistrement de données issues du terrain.
+pour l'instant il n'y a pas de traitement spécifique. juste de l'enregistrement de données issues du terrain.
 
 
 Scenario: Ajout d'un nouvel immeuble a étudier

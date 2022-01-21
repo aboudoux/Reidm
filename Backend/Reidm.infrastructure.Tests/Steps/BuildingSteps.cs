@@ -59,7 +59,7 @@ namespace Reidm.infrastructure.Tests.Steps
 				"TownGas" => new TownGas(value.ToBool()),
 			};
 
-			await SendCommand(new ChangeBuildingInformation(selectedBuilding.BuildingId, info));
+			await SendCommand(new ChangeBuildingInformation(new BuildingId(selectedBuilding.BuildingId), info));
 		}
 
 
@@ -67,7 +67,7 @@ namespace Reidm.infrastructure.Tests.Steps
 		public async Task ThenLimmeubleAPourValeur(string data, BuildingLabel building, string value)
 		{
 			var selectedBuilding = (await Query(new GetAllBuildingToStudy())).First(a => a.BuildingLabel == building.Value);
-			var buildingnfos = (await Query(new LoadBuilding(selectedBuilding.BuildingId)));
+			var buildingnfos = (await Query(new LoadBuilding(new BuildingId(selectedBuilding.BuildingId))));
 
 			switch (data)
 			{
