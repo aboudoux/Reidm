@@ -6,22 +6,22 @@ using Reidm.Application.Buildings.Queries;
 using Reidm.Application.Common;
 using Reidm.Domain.Buildings.Values;
 
-namespace Reidm.Web.Stores
+namespace Reidm.Web.Stores.Buildings
 {
-	public class GlobalReducer :
-		ActionHandler<GlobalState.AddBuildingToStudy>,
-		IRequestHandler<GlobalState.GetAllBuildingToStudy>,
-		IRequestHandler<GlobalState.ChangeValue>,
-		IRequestHandler<GlobalState.LoadBuilding>
+	public class BuildingReducer :
+		ActionHandler<BuildingState.AddBuildingToStudy>,
+		IRequestHandler<BuildingState.GetAllBuildingToStudy>,
+		IRequestHandler<BuildingState.ChangeValue>,
+		IRequestHandler<BuildingState.LoadBuilding>
 	{
 		private readonly ICommandBus _commandBus;
 		private readonly IMediator _mediator;
 		private readonly IQueryBus _queryBus;
 		private readonly ISnackbar _snackbar;
 
-		private GlobalState State => Store.GetState<GlobalState>();
+		private BuildingState State => Store.GetState<BuildingState>();
 
-		public GlobalReducer(IStore store, ICommandBus commandBus, IMediator mediator, IQueryBus queryBus, ISnackbar snackbar) : base(store)
+		public BuildingReducer(IStore store, ICommandBus commandBus, IMediator mediator, IQueryBus queryBus, ISnackbar snackbar) : base(store)
 		{
 			_commandBus = commandBus;
 			_mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
@@ -29,23 +29,23 @@ namespace Reidm.Web.Stores
 			_snackbar = snackbar ?? throw new ArgumentNullException(nameof(snackbar));
 		}
 
-		public override async Task<Unit> Handle(GlobalState.AddBuildingToStudy action, CancellationToken cancellationToken)
+		public override async Task<Unit> Handle(BuildingState.AddBuildingToStudy action, CancellationToken cancellationToken)
 		{
 			var result = await _commandBus.SendAsync(new AddBuildingToStudy(new BuildingLabel(action.Label)));
 			if (result is not CommandResultAdded a) return Unit.Value;
-			await _mediator.Send(new GlobalState.GetAllBuildingToStudy());
-			await _mediator.Send(new GlobalState.NavigateTo("/building/" + a.Id, false));
+			await _mediator.Send(new BuildingState.GetAllBuildingToStudy());
+			await _mediator.Send(new BuildingState.NavigateTo("/building/" + a.Id, false));
 			return Unit.Value;
 		}
 
-		public async Task<Unit> Handle(GlobalState.GetAllBuildingToStudy action, CancellationToken cancellationToken)
+		public async Task<Unit> Handle(BuildingState.GetAllBuildingToStudy action, CancellationToken cancellationToken)
 		{
 			var result = await _queryBus.QueryAsync(new GetAllBuildingToStudy());
 			State.BuildingsToStudy = result.ToDictionary(a=>a.BuildingId, b=>b);
 			return Unit.Value;
 		}
 
-		public async Task<Unit> Handle(GlobalState.ChangeValue action, CancellationToken cancellationToken)
+		public async Task<Unit> Handle(BuildingState.ChangeValue action, CancellationToken cancellationToken)
 		{
 			var result = await _commandBus.SendAsync(new ChangeBuildingInformation(new BuildingId(action.BuildingId), action.Value));
 			if (result == CommandResult.NotApplied())
@@ -122,7 +122,7 @@ namespace Reidm.Web.Stores
 			};
 		}
 
-		public async Task<Unit> Handle(GlobalState.LoadBuilding action, CancellationToken cancellationToken)
+		public async Task<Unit> Handle(BuildingState.LoadBuilding action, CancellationToken cancellationToken)
 		{
 			State.CurrentBuilding = await _queryBus.QueryAsync(new LoadBuilding(new BuildingId(action.BuildingId)));
 			return Unit.Value;

@@ -1,0 +1,39 @@
+﻿
+@using Reidm.Web.Stores
+@using Reidm.Web.Stores.Contacts
+@inherits BlazorState.BlazorStateComponent
+
+<MudDrawer @bind-Open="@Open" Anchor="Anchor.End" Elevation="1" Variant="@DrawerVariant.Persistent" Width="35vh">
+    
+    <div class="flex mt-2">
+    <MudText Typo="Typo.h6" Align="Align.Start" Class="mt-2">Contacts</MudText>
+    </div>
+    
+    <div class="flex items-center">
+        <MudTextField Class="m-2" @bind-Value="Search"  Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Search" AdornmentColor="Color.Dark" />
+        <MudFab Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" />
+    </div>
+    <MudDivider/>
+    <MudList Clickable="true">
+    @foreach (var contact in State.Contact)
+    {
+        <MudListItem>
+            @contact.Name <br/>
+            @contact.Phone<br/>
+            @contact.Email<br/>
+        </MudListItem>
+        <MudDivider/>
+    }
+    </MudList>
+</MudDrawer>
+
+@code {
+
+
+    private ContactState State => GetState<ContactState>();
+
+    [Parameter]
+    public bool Open { get; set; }
+
+    private string Search { get; set; }
+}

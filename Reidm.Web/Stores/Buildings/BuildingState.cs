@@ -2,9 +2,9 @@
 using Reidm.Application.Buildings.Queries;
 using Reidm.Domain.Buildings.Values;
 
-namespace Reidm.Web.Stores;
+namespace Reidm.Web.Stores.Buildings;
 
-public class GlobalState : State<GlobalState>
+public class BuildingState : State<BuildingState>
 {
 	public Dictionary<string,BuildingToStudyResult> BuildingsToStudy { get; set; }
 

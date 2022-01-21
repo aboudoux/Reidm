@@ -1,5 +1,6 @@
 ﻿@using Reidm.Web.Stores
 @using Reidm.Application.Buildings.Queries
+@using Reidm.Web.Stores.Buildings
 @inherits BlazorState.BlazorStateComponent
 
 <MudPaper Width="300px" Style="Position: relative;">
@@ -36,13 +37,13 @@
 
 @code {
 
-    private GlobalState State => GetState<GlobalState>();
+    private BuildingState State => GetState<BuildingState>();
 
     protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
         {
-            Mediator.Send(new GlobalState.GetAllBuildingToStudy());
+            Mediator.Send(new BuildingState.GetAllBuildingToStudy());
         }
         base.OnAfterRender(firstRender);
     }

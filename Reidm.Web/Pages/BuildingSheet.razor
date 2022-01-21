@@ -2,6 +2,7 @@
 @using Reidm.Web.Stores
 @using Reidm.Domain.Buildings.Values
 @using MediatR
+@using Reidm.Web.Stores.Buildings
 @inherits BlazorState.BlazorStateComponent
 
 <div class="grid sm:grid-cols-2 gap-x-2 m-2 xs:grid-cols-1 2xl:grid-cols-[1fr_400px_1fr]">
@@ -80,7 +81,7 @@
 @code {
 
 
-    private GlobalState State => GetState<GlobalState>();
+    private BuildingState State => GetState<BuildingState>();
     private ChipsMvuHandler _chipsMvuAdapter;
 
     protected override void OnAfterRender(bool firstRender)
@@ -95,7 +96,7 @@
         get => _buildingId;
         set
         {
-            Mediator.Send(new GlobalState.LoadBuilding(value));
+            Mediator.Send(new BuildingState.LoadBuilding(value));
             _buildingId = value;
             _chipsMvuAdapter = new ChipsMvuHandler(_buildingId, Mediator, new []
             {
@@ -115,82 +116,82 @@
     private string BuildingLabelText
     {
         get => State.CurrentBuilding.Label;
-        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new BuildingLabel(value)));
+        set => Mediator.Send(new BuildingState.ChangeValue(BuildingId, new BuildingLabel(value)));
     }
 
     private string WantAdLinkText
     {
         get => State.CurrentBuilding.WantAddLink;
-        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new WantAdLink(value)));
+        set => Mediator.Send(new BuildingState.ChangeValue(BuildingId, new WantAdLink(value)));
     }
 
     private string AddressText
     {
         get => State.CurrentBuilding.Address;
-        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new Address(value)));
+        set => Mediator.Send(new BuildingState.ChangeValue(BuildingId, new Address(value)));
     }
 
     private string LastWorksText
     {
         get => State.CurrentBuilding.LastWorks;
-        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new LastWorks(value)));
+        set => Mediator.Send(new BuildingState.ChangeValue(BuildingId, new LastWorks(value)));
     }
 
 
     private string WantAdText
     {
         get => State.CurrentBuilding.WantAddText;
-        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new WantAdText(value)));
+        set => Mediator.Send(new BuildingState.ChangeValue(BuildingId, new WantAdText(value)));
     }
 
     private string CommentsText
     {
         get => State.CurrentBuilding.Comments;
-        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new Comments(value)));
+        set => Mediator.Send(new BuildingState.ChangeValue(BuildingId, new Comments(value)));
     }
 
     private int SellingPriceValue
     {
         get => State.CurrentBuilding.SellingPrice;
-        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new SellingPrice(value)));
+        set => Mediator.Send(new BuildingState.ChangeValue(BuildingId, new SellingPrice(value)));
     }
 
     private int PropertyTaxValue
     {
         get => State.CurrentBuilding.PropertyTax;
-        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new PropertyTax(value)));
+        set => Mediator.Send(new BuildingState.ChangeValue(BuildingId, new PropertyTax(value)));
     }
 
     private int SurfaceValue
     {
         get => State.CurrentBuilding.Surface;
-        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new Surface(value)));
+        set => Mediator.Send(new BuildingState.ChangeValue(BuildingId, new Surface(value)));
     }
 
     private int BuildingYearValue
     {
         get => State.CurrentBuilding.BuildYear;
-        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new BuildYear(value)));
+        set => Mediator.Send(new BuildingState.ChangeValue(BuildingId, new BuildYear(value)));
     }
 
     private DateTime? LastRoofRepairValue
     {
         get => State.CurrentBuilding.LastRoofRepair;
-        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new LastRoofRepair(value)));
+        set => Mediator.Send(new BuildingState.ChangeValue(BuildingId, new LastRoofRepair(value)));
     }
 
     private DateTime? LastFacadeRepairValue
     {
         get => State.CurrentBuilding.LastFacadeRepair;
-        set => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new LastFacadeRepair(value)));
+        set => Mediator.Send(new BuildingState.ChangeValue(BuildingId, new LastFacadeRepair(value)));
     }
 
-    private void OnRoofValueChange(int value) => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new RoofCondition(value)));
-    private void OnFacadeValueChange(int value) => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new FacadeCondition(value)));
-    private void OnBoilerValueChange(int value) => Mediator.Send(new GlobalState.ChangeValue(BuildingId, new BoilerCondition(value)));
+    private void OnRoofValueChange(int value) => Mediator.Send(new BuildingState.ChangeValue(BuildingId, new RoofCondition(value)));
+    private void OnFacadeValueChange(int value) => Mediator.Send(new BuildingState.ChangeValue(BuildingId, new FacadeCondition(value)));
+    private void OnBoilerValueChange(int value) => Mediator.Send(new BuildingState.ChangeValue(BuildingId, new BoilerCondition(value)));
     
-    private void OnWantAddClicked() => Mediator.Send(new GlobalState.OpenWantAdLink(State.CurrentBuilding.WantAddLink));
-    private void OnAddressClicked() => Mediator.Send(new GlobalState.OpenBuildingAddress(State.CurrentBuilding.Address));
+    private void OnWantAddClicked() => Mediator.Send(new BuildingState.OpenWantAdLink(State.CurrentBuilding.WantAddLink));
+    private void OnAddressClicked() => Mediator.Send(new BuildingState.OpenBuildingAddress(State.CurrentBuilding.Address));
 
 
     MudChip selected2;
@@ -226,7 +227,7 @@
             set
             {
                 var changedChip = GetChangedChip(value);
-                _mediator.Send(new GlobalState.ChangeValue(_buildingId, changedChip));
+                _mediator.Send(new BuildingState.ChangeValue(_buildingId, changedChip));
                 _SelectedChips = value;
             }
         }

@@ -2,13 +2,14 @@
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using Reidm.Web.Stores.Buildings;
 
-namespace Reidm.Web.Stores;
+namespace Reidm.Web.Stores.Navigations;
 
 public class NavigationReducer : 
-	ActionHandler<GlobalState.OpenWantAdLink>,
-	IRequestHandler<GlobalState.OpenBuildingAddress>,
-	IRequestHandler<GlobalState.NavigateTo> 
+	ActionHandler<BuildingState.OpenWantAdLink>,
+	IRequestHandler<BuildingState.OpenBuildingAddress>,
+	IRequestHandler<BuildingState.NavigateTo> 
 {
 	private readonly IMediator _mediator;
 	private readonly NavigationManager _navigationManager;
@@ -20,24 +21,24 @@ public class NavigationReducer :
 		_navigationManager = navigationManager;
 		_jsRuntime = jsRuntime ?? throw new ArgumentNullException(nameof(jsRuntime));
 	}
-	public override async Task<Unit> Handle(GlobalState.OpenWantAdLink action, CancellationToken cancellationToken)
+	public override async Task<Unit> Handle(BuildingState.OpenWantAdLink action, CancellationToken cancellationToken)
 	{
-		await _mediator.Send(new GlobalState.NavigateTo(action.url, true));
+		await _mediator.Send(new BuildingState.NavigateTo(action.url, true));
 		return Unit.Value;
 	}
 
-	public async Task<Unit> Handle(GlobalState.OpenBuildingAddress action, CancellationToken cancellationToken) 
+	public async Task<Unit> Handle(BuildingState.OpenBuildingAddress action, CancellationToken cancellationToken) 
 	{
 		if (string.IsNullOrWhiteSpace(action.address)) return Unit.Value;
-		await _mediator.Send(new GlobalState.NavigateTo("https://www.google.fr/maps/place/" + action.address.Replace(" ", "+").ReplaceLineEndings("+"), true)); 
+		await _mediator.Send(new BuildingState.NavigateTo("https://www.google.fr/maps/place/" + action.address.Replace(" ", "+").ReplaceLineEndings("+"), true)); 
 		return Unit.Value;
 	}
 
-	public async Task<Unit> Handle(GlobalState.NavigateTo action, CancellationToken cancellationToken)
+	public async Task<Unit> Handle(BuildingState.NavigateTo action, CancellationToken cancellationToken)
 	{
 		if (string.IsNullOrWhiteSpace(action.Url)) return Unit.Value;
 		if(action.NewTab)
-			await _jsRuntime.InvokeAsync<object>("open", action.Url, "_blank");
+			await _jsRuntime.InvokeAsync<object>("Open", action.Url, "_blank");
 		else
 			_navigationManager.NavigateTo(action.Url);
 		
