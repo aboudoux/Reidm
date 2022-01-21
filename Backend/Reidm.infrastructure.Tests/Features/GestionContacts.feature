@@ -17,10 +17,22 @@ Scenario: Modification d'un contact
 	And Je modifie la valeur "Email" du contact "TEST1" en "TEST1@TEST1.com"
 	And Je modifie la valeur "Phone" du contact "TEST2" en "02.02.02.02.02"
 	And Je modifie la valeur "Email" du contact "TEST2" en "TEST2@TEST2.com"
+	And Je modifie la valeur "Name" du contact "TEST1" en "LOL1"
+	And Je modifie la valeur "Name" du contact "TEST2" en "LOL2"
 	Then La liste des contacts est
-	| Name  | Phone          | Email           |
-	| TEST1 | 01.01.01.01.01 | TEST1@TEST1.com |
-	| TEST2 | 02.02.02.02.02 | TEST2@TEST2.com |
+	| Name | Phone          | Email           |
+	| LOL1 | 01.01.01.01.01 | TEST1@TEST1.com |
+	| LOL2 | 02.02.02.02.02 | TEST2@TEST2.com |
 
 Scenario: Suppression d'un contact
+	Given Une liste de contacts exitants
+	| Name  |
+	| TEST1 |
+	| TEST2 |
+	| TEST3 |
+	When Je supprime le contact "TEST2"
+	When Je supprime le contact "TEST3"
+	Then La liste des contacts est
+	| Name  | Phone | Email |
+	| TEST1 |       |       |
 

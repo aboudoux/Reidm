@@ -32,4 +32,8 @@ public class StepTransformations
 		=> table.Rows.Select(row =>
 			new ContactResult(string.Empty, row["Name"], row["Phone"], row["Email"]))
 			.ToArray();
+
+	[StepArgumentTransformation]
+	public static ContactName[] ToContactNames(Table table)
+		=> table.Rows.Select(row => new ContactName(row["Name"])).ToArray();
 }

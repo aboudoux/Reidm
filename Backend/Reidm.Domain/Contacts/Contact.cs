@@ -18,4 +18,10 @@ public class Contact : AggregateRoot<ContactState>
 		if (State.IsValueChanged(contactValue))
 			RaiseEvent(new ContactInfoChanged(contactValue));
 	}
+
+	public void Remove()
+	{
+		if(State.CanRemove())
+			RaiseEvent(new ContactRemoved());
+	}
 }

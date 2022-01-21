@@ -7,7 +7,8 @@ namespace Reidm.Application.Contacts;
 
 public class ContactCommandHandler : 
 	ICommandHandler<CreateContact>,
-	ICommandHandler<ChangeContactInformation>
+	ICommandHandler<ChangeContactInformation>,
+	ICommandHandler<RemoveContact>
 {
 	private readonly IEventBroker _eventBroker;
 
@@ -31,6 +32,18 @@ public class ContactCommandHandler :
 		contact.ChangeInfo(command.Value);
 
 		if(contact.UncommittedEvents.IsEmpty)
+			return CommandResult.NotApplied();
+
+		await _eventBroker.Publish(contact.UncommittedEvents);
+		return CommandResult.Ok();
+	}
+
+	public async Task<CommandResult> Handle(RemoveContact command, CancellationToken cancellationToken)
+	{
+		var contact = await _eventBroker.GetAggregate<Contact>(command.ContactId.Value);
+		contact.Remove();
+
+		if (contact.UncommittedEvents.IsEmpty)
 			return CommandResult.NotApplied();
 
 		await _eventBroker.Publish(contact.UncommittedEvents);

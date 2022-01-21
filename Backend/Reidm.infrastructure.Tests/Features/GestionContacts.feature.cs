@@ -178,19 +178,25 @@ this.ScenarioInitialize(scenarioInfo);
 #line 19
  testRunner.And("Je modifie la valeur \"Email\" du contact \"TEST2\" en \"TEST2@TEST2.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
+#line 20
+ testRunner.And("Je modifie la valeur \"Name\" du contact \"TEST1\" en \"LOL1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 21
+ testRunner.And("Je modifie la valeur \"Name\" du contact \"TEST2\" en \"LOL2\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
                 TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "Phone",
                             "Email"});
                 table4.AddRow(new string[] {
-                            "TEST1",
+                            "LOL1",
                             "01.01.01.01.01",
                             "TEST1@TEST1.com"});
                 table4.AddRow(new string[] {
-                            "TEST2",
+                            "LOL2",
                             "02.02.02.02.02",
                             "TEST2@TEST2.com"});
-#line 20
+#line 22
  testRunner.Then("La liste des contacts est", ((string)(null)), table4, "Then ");
 #line hidden
             }
@@ -205,7 +211,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Suppression d\'un contact", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 25
+#line 27
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -225,6 +231,34 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Name"});
+                table5.AddRow(new string[] {
+                            "TEST1"});
+                table5.AddRow(new string[] {
+                            "TEST2"});
+                table5.AddRow(new string[] {
+                            "TEST3"});
+#line 28
+ testRunner.Given("Une liste de contacts exitants", ((string)(null)), table5, "Given ");
+#line hidden
+#line 33
+ testRunner.When("Je supprime le contact \"TEST2\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 34
+ testRunner.When("Je supprime le contact \"TEST3\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Name",
+                            "Phone",
+                            "Email"});
+                table6.AddRow(new string[] {
+                            "TEST1",
+                            "",
+                            ""});
+#line 35
+ testRunner.Then("La liste des contacts est", ((string)(null)), table6, "Then ");
+#line hidden
             }
             this.ScenarioCleanup();
         }

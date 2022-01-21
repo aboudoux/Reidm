@@ -1,8 +1,10 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Reidm.Application.Buildings.Commands;
 using Reidm.Application.Contacts.Commands;
 using Reidm.Application.Contacts.Queries;
+using Reidm.Domain.Common;
 using Reidm.Domain.Contacts.Values;
 using TechTalk.SpecFlow;
 
@@ -15,6 +17,12 @@ public class ContactSteps : StepBase
 	public async Task GivenAucunContactNapplication()
 	{
 		(await Query(new GetAllContacts())).Should().BeEmpty("Il y a des contacts a étudier en base");
+	}
+
+	[Given(@"Une liste de contacts exitants")]
+	public async Task GivenUneListeDeContactsExitants(ContactName[] contacts) 
+	{
+		await contacts.ForEachAsync(async a => await SendCommand(new CreateContact(a)));
 	}
 
 	[Given(@"J'ajoute un nouveau contact du nom de ""([^""]*)""")]
@@ -39,10 +47,18 @@ public class ContactSteps : StepBase
 		await SendCommand(new ChangeContactInformation(new ContactId(selectedContact.ContactId), info));
 	}
 
+	[When(@"Je supprime le contact ""([^""]*)""")]
+	public async Task WhenJeSupprimeLeContact(ContactName name) 
+	{
+		var selectedContact = (await Query(new GetAllContacts())).First(a => a.Name == name.Value);
+		await SendCommand(new RemoveContact(new ContactId(selectedContact.ContactId)));
+	}
+
 
 	[Then(@"La liste des contacts est")]
 	public async Task ThenLaListeDesContactsEst(ContactResult[] contacts)
 	{
-		(await Query(new GetAllContacts())).Should().BeEquivalentTo(contacts, a => a.Excluding(b => b.ContactId));
+		var all = await Query(new GetAllContacts());
+		all.Should().BeEquivalentTo(contacts, a => a.Excluding(b => b.ContactId));
 	}
 }

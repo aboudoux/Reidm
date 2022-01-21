@@ -6,7 +6,7 @@ namespace Reidm.Application.Common;
 public interface IBuildingRepository
 {
 	public void AddBuildingToStudy(BuildingId buildingId, BuildingLabel label);
-	public void ChangeBuildingInfo(BuildingId buildingId, IBuildingValue info);
+	public void ChangeValue(BuildingId buildingId, IBuildingValue value);
 	public BuildingToStudyResult[] GetAllBuildingToStudy();
 
 	public BuildingResult LoadBuilding(BuildingId buildingId);

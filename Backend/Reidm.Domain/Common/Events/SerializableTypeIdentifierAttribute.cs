@@ -1,7 +1,7 @@
 ﻿namespace Reidm.Domain.Common.Events
 {
     /// <summary>
-    /// Last = 33
+    /// Last = 34
     /// </summary>
     public sealed class SerializableTypeIdentifierAttribute : Attribute
     {

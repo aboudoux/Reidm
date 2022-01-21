@@ -9,5 +9,7 @@ public interface IContactRepository
 
 	public void Add(ContactId contactId, ContactName name);
 
-	
+	public void ChangeValue(ContactId contactId, IContactValue value);
+
+	public void Remove(ContactId contactId);
 }

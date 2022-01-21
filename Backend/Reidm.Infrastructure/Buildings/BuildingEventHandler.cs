@@ -23,7 +23,7 @@ namespace Reidm.Infrastructure.Buildings {
 
 		public Task Handle(BuildingInfoChanged @event, CancellationToken cancellationToken)
 		{
-			_repository.ChangeBuildingInfo(new BuildingId(@event.AggregateId), @event.Info);
+			_repository.ChangeValue(new BuildingId(@event.AggregateId), @event.Info);
 			return Task.CompletedTask;
 		}
 	}

@@ -14,11 +14,11 @@ public class InMemoryBuildingRepository : IBuildingRepository
 		_allBuildings.Add(buildingId, new BuildingResult {Label = label.Value});
 	}
 
-	public void ChangeBuildingInfo(BuildingId buildingId, IBuildingValue info)
+	public void ChangeValue(BuildingId buildingId, IBuildingValue value)
 	{
-		if (!_allBuildings.ContainsKey(buildingId)) throw new ArgumentException($"Building {buildingId} not found");
+		if (!_allBuildings.ContainsKey(buildingId)) throw new ArgumentException($"Building {buildingId.Value} not found");
 
-		_allBuildings[buildingId] = info switch
+		_allBuildings[buildingId] = value switch
 		{
 			BuildYear i => _allBuildings[buildingId] with { BuildYear = i.Value },
 			ClassifiedArea i => _allBuildings[buildingId] with { ClassifiedArea = i.Value },
@@ -43,7 +43,7 @@ public class InMemoryBuildingRepository : IBuildingRepository
 			Cellar i => _allBuildings[buildingId] with{ Cellar = i.Value},
 			WantAdText i => _allBuildings[buildingId] with{ WantAddText = i.Value},
 			BoilerCondition i => _allBuildings[buildingId] with { BoilerCondition = i.Value },
-			_ => throw new ArgumentOutOfRangeException(nameof(info), info, null)
+			_ => throw new ArgumentOutOfRangeException(nameof(value), value, null)
 		};
 	}
 
