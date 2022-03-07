@@ -43,7 +43,7 @@ jobs:
       uses: garygrossgarten/github-action-scp@release
       with:
           local: ../webapp
-          remote: /home/aurelien/reidm
+          remote: /sites/reidm
           host: ${{ secrets.HOST }}
           username: ${{ secrets.LOGIN }}
           password: ${{ secrets.PASSWORD }}    
@@ -62,6 +62,6 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: 22
         script: |
-          chmod +x /home/aurelien/reidm/Reidm.Web
+          chmod +x /sites/reidm/Reidm.Web
           echo $PASSWORD | sudo -S systemctl start reidm
          
